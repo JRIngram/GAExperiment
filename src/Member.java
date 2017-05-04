@@ -6,10 +6,10 @@ import java.util.Random;
  */
 public class Member implements Comparable{
 	
-	String chromosome;
-	int fitness = 0; //Lower the number the better the fitness
-	String targetString;
-	boolean bredThisGen;
+	private String chromosome;
+	private int fitness = 0; //Lower the number the better the fitness
+	private String targetString;
+	private boolean bredThisGen;
 	
 	/**
 	 * Creates a member with a fixed choromosome length and the goal

@@ -2,20 +2,27 @@ import java.util.Arrays;
 
 public class Population {
 	
-	Member[] population;
-	String targetString;
+	private Member[] population;
 	
+	/**
+	 * Constructor for population which creates the initial population.
+	 * @param populationSize Number of members in the population.
+	 * @param chromosomeSize Sets the number of bits in the member string.
+	 * @param targetString The String we are trying to "find". 
+	 */
 	public Population(int populationSize, int chromosomeSize, String targetString){
-		this.targetString = targetString;
 		population = new Member[populationSize];
-		//System.out.println("Generating population...");
+		System.out.println("Generating initial population...");
 		for(int i = 0; i < population.length; i++){
 			population[i] = new Member(chromosomeSize, targetString);
 		}
-		//System.out.println("Initial population generated!");
+		System.out.println("Initial population generated!");
 		sortPopulation();
 	}
 	
+	/**
+	 * Prints a list of members within the group.
+	 */
 	@Override
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
@@ -25,6 +32,9 @@ public class Population {
 		return sb.toString();
 	}
 	
+	/**
+	 * Returns the array containing members of the population.
+	 */
 	public Member[] getPopulation(){
 		return population;
 	}
@@ -33,10 +43,16 @@ public class Population {
 		Arrays.sort(population);
 	}
 	
+	/**
+	 * Returns the least fit member of the population.
+	 */
 	public Member getFittestMember(){
 		return population[0];
 	}
 	
+	/**
+	 * Returns the least fit member of the population.
+	 */
 	public Member getLeastFitMember(){
 		return population[population.length - 1];
 	}
@@ -64,7 +80,10 @@ public class Population {
 		}
 	}
 	
-	
+	/**
+	 * Creates a new population of the same size, based on the fittest half of the previous generation.
+	 * @param fittestHalfPrevious
+	 */
 	public void createNextGeneration(Member[] fittestHalfPrevious){
 		Member[] newGen = new Member[population.length];
 		
