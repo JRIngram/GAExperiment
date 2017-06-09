@@ -5,19 +5,22 @@ import java.util.Random;
  *
  */
 public class Member implements Comparable{
-	
+
 	private String chromosome;
 	private int fitness = 0; //Lower the number the better the fitness
 	private String targetString;
 	private boolean bredThisGen;
-	
+	private int mutationRate;
+
 	/**
 	 * Creates a member with a fixed choromosome length and the goal
 	 * @param chromosomeLength Number of bits for the target string.
 	 * @param targetString Goal state.
+	 * @param mutationRate Determines chance of a member mutating: 1/mutationRate per bit.
 	 */
-	public Member(int chromosomeLength, String targetString){
+	public Member(int chromosomeLength, String targetString, int mutationRate){
 		this.targetString = targetString;
+		this.mutationRate = mutationRate;
 		StringBuilder chromosomeString = new StringBuilder();
 		for(int i = 0; i < chromosomeLength; i++){
 			chromosomeString.append(generateGene());
@@ -26,15 +29,17 @@ public class Member implements Comparable{
 		setFitness(targetString);
 		bredThisGen = false;
 	}
-	
+
 	/**
 	 * Creates a new member based off of the two halves of parents.
 	 * Also has the possibility of the chromosome mutating.
 	 * @param firstHalf First half of one of the parents.
 	 * @param secondHalf Second half of one of the parents.
 	 * @param targetString Goal state.
+	 * @param mutationRate Determines chance of mutating: 1/mutationRate.
 	 */
-	public Member(String firstHalf, String secondHalf, String targetString){
+	public Member(String firstHalf, String secondHalf, String targetString, int mutationRate){
+		this.mutationRate = mutationRate;
 		StringBuilder chromosomeString = new StringBuilder();
 		chromosomeString.append(firstHalf);
 		chromosomeString.append(secondHalf);
@@ -43,7 +48,7 @@ public class Member implements Comparable{
 		mutate();
 		setFitness(targetString);
 	}
-	
+
 	/**
 	 * Generates an invididual gene/bit for the Member's chromosome.
 	 * @return
@@ -52,14 +57,14 @@ public class Member implements Comparable{
 		Random rnd = new Random();
 		return new Integer(rnd.nextInt(2)).toString();
 	}
-	
+
 	/**
 	 * @return The Member's choromsome.
 	 */
 	public String getChromosome(){
 		return chromosome;
 	}
-	
+
 	/**
 	 * Sets the chromosome for the member.
 	 * @param newGene
@@ -67,7 +72,7 @@ public class Member implements Comparable{
 	public void setChromosome(String newChromosome){
 		this.chromosome = newChromosome;
 	}
-	
+
 	/**
 	 * Gets the hamming distance / fitness of the member.
 	 * The lower the value, the closer the member is to the goal.
@@ -76,7 +81,7 @@ public class Member implements Comparable{
 	public int getFitness(){
 		return fitness;
 	}
-	
+
 	/**
 	 * Calculates the fitness of the member based off the hamming distance from the target string.
 	 * The lower the fitness, the better.
@@ -103,14 +108,14 @@ public class Member implements Comparable{
 			fitness = targetString.length();
 		}
 	}
-	
+
 	/**
 	 * Prints the Member's chromosome and fitness.
 	 */
 	public String toString(){
 		return "Chromosome: " + chromosome + "; Fitness: " + fitness;
 	}
-	
+
 	/**
 	 * Compares the fitness of two members.
 	 */
@@ -119,7 +124,7 @@ public class Member implements Comparable{
 		Member comparingMem = (Member) o;
 		return this.getFitness() - comparingMem.getFitness();
 	}
-	
+
 	/**
 	 * Causes the Member to breed with another member.
 	 * Precondition is that the member hasn't already bred this generation.
@@ -129,28 +134,28 @@ public class Member implements Comparable{
 	public Member[] breed(Member mem){
 		if(!bredThisGen){
 			int mid = this.chromosome.length() / 2;
-			
+
 			//Splits this member in half
 			String[] thisHalves = new String[2];
 			thisHalves[0] = this.chromosome.substring(0, mid);
 			thisHalves[1] = this.chromosome.substring(mid, this.chromosome.length());
-			
+
 			//Splits other member in half
 			String[] memHalves = new String[2];
 			memHalves[0] = mem.getChromosome().substring(0, mid);
 			memHalves[1] = mem.getChromosome().substring(mid, mem.chromosome.length());
-			
+
 			//Generate children
 			Member[] children = new Member[2];
-			children[0] = new Member(thisHalves[0], memHalves[1], targetString);
-			children[1] = new Member(memHalves[0], thisHalves[1], targetString);
+			children[0] = new Member(thisHalves[0], memHalves[1], targetString, mutationRate);
+			children[1] = new Member(memHalves[0], thisHalves[1], targetString, mutationRate);
 			this.bredThisGen = true;
 			mem.setBredThisGen(true);
 			return children;
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Sets if the Member has bred this generation, used to ensure it doesn't breed multiple times per generation.
 	 * @param bred Boolean to set the state of if it's bred.
@@ -158,7 +163,7 @@ public class Member implements Comparable{
 	public void setBredThisGen(boolean bred){
 		this.bredThisGen = bred;
 	}
-	
+
 	/**
 	 * Returns if the Member has bred this generation.
 	 * @return State of if the member has bred.
@@ -166,7 +171,7 @@ public class Member implements Comparable{
 	public boolean getBredThisGen(){
 		return this.bredThisGen;
 	}
-	
+
 	/**
 	 * Mutates the Member's chromosome, with a 1 in 100 chance of the chromosome mutating.
 	 */
@@ -175,7 +180,7 @@ public class Member implements Comparable{
 		boolean mutation = false;
 		String[] splitChromosome = chromosome.split("");
 		for(int i = 0; i < splitChromosome.length; i++){
-			if(rnd.nextInt(100 + 1) == 1){
+			if(rnd.nextInt(mutationRate + 1) == 1){
 				if(splitChromosome[i].equals("0")){
 					splitChromosome[i] = "1";
 				}else if (splitChromosome[i].equals("1")){
