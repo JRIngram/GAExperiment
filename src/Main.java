@@ -3,22 +3,26 @@ public class Main {
 
 	public static void main(String[] args) {
 		//TODO reenable string printing!
-		String target = "110110110100000010011011";//32-bit
-		Double[] results = new Double[25];
+		String target = "100000110001001000011000001101110100101111010111";//48-bit
+		Double[] results = new Double[100];
 		//Number of mutation rates.
 		//Section needing rework
-		for(int i = 1; i < 100; i++){
+		for(int i = (int) Math.floor(target.length() * .7); i <= target.length(); i++){
 			double result = 0;
-			int numberOfTests = 10000;
+			int numberOfTests = 50000;
 			for(int c = 0; c < numberOfTests; c++){
 				System.out.println("Test num: " + c);
 				result += (double) runAlgorithm(target, i + 1);
 			}
 			results[i] = result / numberOfTests;
 		}
+		System.out.println("Started at:" + Math.floor(.7 * target.length()));
 		for(int i = 0; i < results.length; i++){
-			System.out.println(results[i]);
+			if(i <= target.length() && i >= Math.floor(.7 * target.length())){
+				System.out.println(results[i]);
+			}
 		}
+		System.out.println("Finished at " + target.length());
 
 	}
 
