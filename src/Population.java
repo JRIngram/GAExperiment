@@ -12,11 +12,9 @@ public class Population {
 	 */
 	public Population(int populationSize, int chromosomeSize, String targetString){
 		population = new Member[populationSize];
-		System.out.println("Generating initial population...");
 		for(int i = 0; i < population.length; i++){
 			population[i] = new Member(chromosomeSize, targetString);
 		}
-		System.out.println("Initial population generated!");
 		sortPopulation();
 	}
 	
