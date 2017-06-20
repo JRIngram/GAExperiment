@@ -28,16 +28,20 @@ public class GAAlgorithm{
 	
 	public boolean checkIfTargetFound(){
 		if(population.getFittestMember().getFitness() == 0){
-			return false;
+			return true;
 		}
 		else{
-			return true;
+			return false;
 		}
 	}
 	
 	public void runGeneration(){
 		generationNum++;
 		population.createNextGeneration(population.getFittestHalf());
+	}
+	
+	public String foundInMessage(){
+		return "Target found in " + generationNum + " generations!";
 	}
 	
 }
