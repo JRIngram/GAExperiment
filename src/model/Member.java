@@ -1,3 +1,4 @@
+package model;
 import java.util.Random;
 /**
  * Member class for genetic algorithm

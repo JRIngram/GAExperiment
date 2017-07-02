@@ -1,4 +1,5 @@
-
+package model;
+import view.TUI;
 public class Main {
 
 	public static void main(String[] args) {
