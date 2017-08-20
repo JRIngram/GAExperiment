@@ -13,12 +13,23 @@ public class TUI extends View{
 		input = new Scanner(System.in);
 	}
 	
-	public void setTargetString() {
+	public void setTargetString(){
 		boolean targetSet = false;
 		do{
 			System.out.println("What is the target string? (Must contain *only* 1s and 0s)");
 			targetSet = con.setTargetString(input.nextLine());
-			System.out.println(targetSet);
 		}while(!targetSet);
+	}
+	
+	public void setPopulationSize(){
+		boolean populationSizeSet = false;
+		do{
+			System.out.println("What population size would you like?");
+			populationSizeSet = con.setPopulationSize(input.nextInt());
+			if(!populationSizeSet){
+				System.out.println("Population size must satisfy the following equation:");
+				System.out.println("\tfloor((S / 2) * 2) = S");
+			}
+		}while(!populationSizeSet);
 	}
 }

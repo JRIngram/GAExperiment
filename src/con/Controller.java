@@ -11,4 +11,8 @@ public class Controller {
 	public boolean setTargetString(String target){
 		return model.setTargetString(target);
 	}
+	
+	public boolean setPopulationSize(int populationSize) {
+		return model.setPopulationSize(populationSize);
+	}
 }

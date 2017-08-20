@@ -5,10 +5,12 @@ public class GAAlgorithm{
 	private String target;
 	private Population population;
 	private int generationNum;
+	private int populationSize;
 	
 	public GAAlgorithm(String target) {
 		this.target = target;
 		generationNum = 1;
+		populationSize = 4;
 	}
 	
 	public boolean setTargetString(String target) {
@@ -21,9 +23,19 @@ public class GAAlgorithm{
 		}
 	}
 	
+	public boolean setPopulationSize(int populationSize){
+		if(populationSize == ((populationSize / 2) * 2)) {
+			this.populationSize = populationSize;	
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
 	public void startAlgorithm(){
 		System.out.println("Generating initial population...");
-		this.population = new Population(12, target.length(), target);
+		this.population = new Population(populationSize, target.length(), target);
 		System.out.println("Initial population generated!");
 	}
 	

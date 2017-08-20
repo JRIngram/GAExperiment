@@ -7,6 +7,7 @@ public class Main {
 		
 		TUI tui = new TUI(ga);
 		tui.setTargetString();
+		tui.setPopulationSize();
 		ga.startAlgorithm();
 		System.out.println(ga.generationMessage());
 		do{
