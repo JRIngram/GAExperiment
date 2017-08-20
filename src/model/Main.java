@@ -3,8 +3,7 @@ import view.TUI;
 public class Main {
 
 	public static void main(String[] args) {
-		GAAlgorithm ga = new GAAlgorithm("00100101");
-		
+		GAAlgorithm ga = new GAAlgorithm();
 		TUI tui = new TUI(ga);
 		tui.setTargetString();
 		tui.setPopulationSize();
