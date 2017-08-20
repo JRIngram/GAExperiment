@@ -24,8 +24,10 @@ public class GAAlgorithm{
 	}
 	
 	public boolean setPopulationSize(int populationSize){
-		if(populationSize == ((populationSize / 2) * 2)) {
+		if((populationSize == ((populationSize / 2) * 2))
+				&& ((populationSize / 2) % 2) == 0){
 			this.populationSize = populationSize;	
+			System.out.println((populationSize / 2) % 2);
 			return true;
 		}
 		else{

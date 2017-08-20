@@ -91,6 +91,7 @@ public class Population {
 			newGen[i] = getFittestHalf()[i];
 		}
 		
+		
 		for(int i = 0; i < (newGen.length / 2); i++){
 			if(!newGen[i].getBredThisGen()){
 				Member[] newMembers = newGen[i].breed(newGen[i+1]);

@@ -27,8 +27,9 @@ public class TUI extends View{
 			System.out.println("What population size would you like?");
 			populationSizeSet = con.setPopulationSize(input.nextInt());
 			if(!populationSizeSet){
-				System.out.println("Population size must satisfy the following equation:");
+				System.out.println("Population size must satisfy the following equations:");
 				System.out.println("\tfloor((S / 2) * 2) = S");
+				System.out.println("\t((S / 2) % 2) = 0");
 			}
 		}while(!populationSizeSet);
 	}
