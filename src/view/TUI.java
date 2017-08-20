@@ -1,15 +1,14 @@
 package view;
-import con.Controller;
 import model.GAAlgorithm;
 import java.util.Scanner;
 
 public class TUI extends View{
 		
-	private Controller con;
+
 	private Scanner input;
 	
 	public TUI(GAAlgorithm model){
-		con = new Controller(model);
+		super(model);
 		input = new Scanner(System.in);
 	}
 	
