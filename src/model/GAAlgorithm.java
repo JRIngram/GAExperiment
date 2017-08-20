@@ -11,6 +11,16 @@ public class GAAlgorithm{
 		generationNum = 1;
 	}
 	
+	public boolean setTargetString(String target) {
+		if(target.matches("^(0|1)*$")){
+			this.target = target;
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
 	public void startAlgorithm(){
 		System.out.println("Generating initial population...");
 		this.population = new Population(12, target.length(), target);

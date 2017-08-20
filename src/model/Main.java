@@ -4,6 +4,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		GAAlgorithm ga = new GAAlgorithm("00100101");
+		
+		TUI tui = new TUI(ga);
+		tui.setTargetString();
 		ga.startAlgorithm();
 		System.out.println(ga.generationMessage());
 		do{
